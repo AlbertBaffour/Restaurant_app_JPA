@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JPA Project</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+</head>
+<body>
+<h1 class="p-3">
+JPA Project - Bestellingen
+   </h1>
+
+<div class="p-3">
+    <a href="/zoeken" class="btn-primary btn">Zoeken</a>
+    <a href="/addBestelling" class="btn btn-primary">Nieuwe bestelling</a>
+    <a href="/" class="btn-outline-secondary btn">Home</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Betaalstatus</th>
+            <th>Verantwoordelijke</th>
+            <th>Tafel</th>
+            <th>Totaal</th>
+            <th>Details</th>
+            <th>Betaling</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bestelling : ${bestellingen}">
+            <td th:text="${#dates.format(bestelling.datum,'dd MMM yyyy').toString()}"></td>
+            <td><span  th:if="${bestelling.getBetaald()}">Betaald</span><span  th:unless="${bestelling.getBetaald()}">Niet betaald</span></td>
+            <td th:text="${bestelling.zaalpersoneel.getNaam()}"></td>
+            <td th:text="${bestelling.tafel.getCode()}"></td>
+            <td>€ <span th:text="${bestelling.getTotaal()}"></span></td>
+            <td><a th:href="@{/bestelling(bestellingId=${bestelling.getId()})}">Zie details</a></td>
+            <td><a th:unless="${bestelling.getBetaald()}" class="btn btn-success" th:href="@{/betaling(bestellingId=${bestelling.getId()})}">Betaal</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Tabellen opvullen-->
+    <div th:if="${feedbacktekst}">
+        <p class="m-3" th:text="${feedbacktekst}"></p>
+    </div>
+</div>
+<!--Footer-->
+<div class="border-top border-dg footer p-2 bg-light text-dark text-center d-flex flex-wrap">
+    <div class="col-12 d-flex flex-wrap text-dg">
+        <div class=" col-12 col-sm-3 col-md-3 text-left p-3">
+            <p class="font-weight-bold mb-0">JPA Project</p>
+        </div>
+        <div class=" col-12 col-sm-6 col-md-6 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Albert A. Baffour (2 APP/AI 02)</p>
+        </div>
+        <div class=" col-12 col-sm-3 col-md-3 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Thomas More 2021</p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>
+

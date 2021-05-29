@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JPA Project</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+</head>
+<body>
+<h1 class="p-3">
+JPA Project - Nieuwe bestelling
+
+
+</h1>
+
+<div class="p-3">
+    <form class="w-75 m-auto" action="/addBesteldItem">
+        <p><label for="gerecht">Selecteer een gerecht:</label>
+            <select class="custom-select my-1 mr-sm-2 form-control" name="gerecht" id="gerecht" >
+                <option value="" selected >kies gerecht...</option>
+                <option th:each="gerecht : ${gerechts}" th:text="${gerecht.getNaam() +' ( € '+gerecht.getActuelePrijs()+' ) '}" th:value="${gerecht.getId()}"></option>
+
+            </select>
+        </p>
+        <div>
+        <label class="my-1 mr-2" for="aantal">Aantal</label>
+            <input class="form-control" type="text" name="aantal" id="aantal" >
+        </div>
+        <br>
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="happyHour" name="happyHour">
+            <label class="custom-control-label" for="happyHour">Happy hour :)</label>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Voeg toe</button>
+
+    </form>
+    <div th:if="${currentBesteldItems}" class="w-75 m-auto mt-2">
+        <h3>Toegevoegde artikelen - bestelling
+
+            <a href="/bestellingAfronden" class="float-end btn btn-primary ">Bestelling afronden</a>
+        </h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Gerecht</th>
+                <th>Aantal</th>
+                <th>Toegepaste prijs ( prijs )</th>
+                <th>Subtotaal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${currentBesteldItems}">
+                <td th:text="${item.gerecht.getNaam()}"></td>
+                <td th:text="${item.getAantal()}"></td>
+                <td>€ <span th:text="${item.getToegepastePrijs() +' ( € '+item.gerecht.getActuelePrijs()+' )'}"></span></td>
+                <td>€ <span th:text="${item.getAantal()*item.getToegepastePrijs()}"></span></td>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Totaal</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>€ <span th:text="${bestelling.getTotaal()}"></span></th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--Footer-->
+<div class="border-top border-dg footer p-2 bg-light text-dark text-center d-flex flex-wrap">
+    <div class="col-12 d-flex flex-wrap text-dg">
+        <div class=" col-12 col-sm-3 col-md-3 text-left p-3">
+            <p class="font-weight-bold mb-0">JPA Project</p>
+        </div>
+        <div class=" col-12 col-sm-6 col-md-6 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Albert A. Baffour (2 APP/AI 02)</p>
+        </div>
+        <div class=" col-12 col-sm-3 col-md-3 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Thomas More 2021</p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>

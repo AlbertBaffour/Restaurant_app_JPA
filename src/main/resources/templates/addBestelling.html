@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JPA Project</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+</head>
+<body>
+<h1 class="p-3">
+JPA Project - Nieuwe bestelling
+  </h1>
+
+<div class="p-3">
+    <form class="w-75 m-auto" action="/processAddBestelling">
+        <p><label for="zaalpersoneel">Zaalpersoneel:</label>
+            <select class="custom-select my-1 mr-sm-2 form-control" name="zaalpersoneel" id="zaalpersoneel" >
+                <option value="" selected >kies zaalpersoneel...</option>
+                <option th:each="personeel : ${zaalpersoneels}" th:text="${personeel.getNaam()}" th:value="${personeel.getId()}"></option>
+
+            </select>
+        </p>
+        <div>
+        <label class="my-1 mr-2" for="tafel">Tafel</label>
+        <select class="custom-select my-1 mr-sm-2 form-control" name="tafel" id="tafel" >
+            <option value="" selected >kies tafel...</option>
+            <option th:each="tafel : ${tafels}" th:text="${tafel.getCode()}" th:value="${tafel.getId()}"></option>
+
+        </select>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Aanmaken</button>
+        <a href="/bestellingen" class="btn btn-outline-secondary btn-lg btn-block">Terug</a>
+
+    </form>
+
+
+
+
+</div>
+<!--Footer-->
+<div class="border-top border-dg footer p-2 bg-light text-dark text-center d-flex flex-wrap">
+    <div class="col-12 d-flex flex-wrap text-dg">
+        <div class=" col-12 col-sm-3 col-md-3 text-left p-3">
+            <p class="font-weight-bold mb-0">JPA Project</p>
+        </div>
+        <div class=" col-12 col-sm-6 col-md-6 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Albert A. Baffour (2 APP/AI 02)</p>
+        </div>
+        <div class=" col-12 col-sm-3 col-md-3 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Thomas More 2021</p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>

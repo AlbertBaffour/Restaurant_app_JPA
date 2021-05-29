@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JPA Project</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+</head>
+<body>
+<h1 class="p-3">
+JPA Project - Details bestelling
+   </h1>
+
+<div class="p-3">
+    <a href="/bestellingen" class="btn-primary btn">Terug</a>
+    <a href="/" class="btn-outline-secondary btn">Home</a>
+    <table class="table">
+        <tr class="border-white">
+            <th>Datum</th>
+            <th>Betaalstatus</th>
+            <th>Verantwoordelijke</th>
+            <th>Tafel</th>
+            <th>Totaal</th>
+        </tr>
+        <tr>
+            <td th:text="${#dates.format(bestelling.datum,'dd MMM yyyy').toString()}"></td>
+            <td th:text="${bestelling.getBetaalstatus()}"></td>
+            <td th:text="${bestelling.zaalpersoneel.getNaam()}"></td>
+            <td th:text="${bestelling.tafel.getCode()}"></td>
+            <td>€ <span th:text="${bestelling.getTotaal()}"></span></td>
+          </tr>
+    </table>
+    <br>
+    <h3>Bestelde artikelen</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Gerecht</th>
+            <th>Aantal</th>
+            <th>Toegepaste prijs (actuele prijs)</th>
+            <th>Subtotaal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${besteldeItems}">
+            <td th:text="${item.gerecht.getNaam()}"></td>
+            <td th:text="${item.getAantal()}"></td>
+            <td>€ <span th:text="${item.getToegepastePrijs() +' ( € '+item.gerecht.getActuelePrijs()+' )'}"></span></td>
+            <td>€ <span th:text="${item.getAantal()*item.getToegepastePrijs()}"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Tabellen opvullen-->
+    <div th:if="${feedbacktekst}">
+        <p class="m-3" th:text="${feedbacktekst}"></p>
+    </div>
+</div>
+<!--Footer-->
+<div class="border-top border-dg footer p-2 bg-light text-dark text-center d-flex flex-wrap">
+    <div class="col-12 d-flex flex-wrap text-dg">
+        <div class=" col-12 col-sm-3 col-md-3 text-left p-3">
+            <p class="font-weight-bold mb-0">JPA Project</p>
+        </div>
+        <div class=" col-12 col-sm-6 col-md-6 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Albert A. Baffour (2 APP/AI 02)</p>
+        </div>
+        <div class=" col-12 col-sm-3 col-md-3 border-left border-light text-left p-3">
+            <p class="font-weight-bold">Thomas More 2021</p>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>
+
